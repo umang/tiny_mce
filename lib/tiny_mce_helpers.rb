@@ -32,7 +32,7 @@ module TinyMCEHelpers
                    unlink separator image ts_advimage cleanup separator undo redo },
                    #'theme_advanced_buttons1' => %w{ formatselect fontsizeselect},
                    #'theme_advanced_buttons1' => %w{ formatselect },
-                  'theme_advanced_buttons2' => %w{ tablecontrols separator fullscreen separator pastetext pasteword selectall separator code },
+                  'theme_advanced_buttons2' => %w{ tablecontrols separator fullscreen separator code },
                    #'theme_advanced_buttons3_add' => %w{ tablecontrols fullscreen removeformat preview},
                    #'theme_advanced_buttons2' => %w{},
                   'theme_advanced_buttons3' => %w{},
