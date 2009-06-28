@@ -16,10 +16,40 @@ module TinyMCEHelpers
     # first we set some defaults, then we merge in the controller level options
     # and finally merge in the view level options (to give presidence)
 	  @tiny_mce_options ||= {}
-    default_options = { 'mode' => 'textareas',
-                'editor_selector' => 'mceEditor',
-                'theme' => 'simple',
-                'language' => (defined?(I18n) ? I18n.locale : :en) }
+		default_options = {
+ 									'mode' => "textareas",
+                	'editor_selector' => 'mceEditor',
+                  'theme' => 'advanced',
+                  'width' => "100%",
+                  'convert_urls' => false,
+                  'remove_script_host' => true,
+                  'theme_advanced_toolbar_location' => "top",
+                  'theme_advanced_toolbar_align' => "left",
+                  'theme_advanced_resizing' => true,
+                  'theme_advanced_resize_horizontal' => false,
+                  'theme_advanced_buttons1' => %w{ formatselect bold italic underline strikethrough separator justifyleft
+                   justifycenter justifyright indent outdent separator bullist numlist forecolor backcolor separator link
+                   unlink separator image ts_advimage cleanup separator undo redo },
+                   #'theme_advanced_buttons1' => %w{ formatselect fontsizeselect},
+                   #'theme_advanced_buttons1' => %w{ formatselect },
+                  'theme_advanced_buttons2' => %w{ tablecontrols separator fullscreen separator pastetext pasteword selectall separator code },
+                   #'theme_advanced_buttons3_add' => %w{ tablecontrols fullscreen removeformat preview},
+                   #'theme_advanced_buttons2' => %w{},
+                  'theme_advanced_buttons3' => %w{},
+                  'paste_auto_cleanup_on_paste' => true,
+                  'paste_create_paragraphs' => true,
+                  'paste_create_linebreaks' => true,
+                  'paste_convert_middot_lists' => false,
+                  'paste_unindented_list_class' => "unindentedList",
+                  'paste_convert_headers_to_strong' => true,
+                  'paste_insert_word_content_callback' => "convertWord",
+                  'forced_root_block' => false, #No automatic <p> tag creation on editor invoke.
+                  #'plugins' => %w{ contextmenu paste table fullscreen preview inlinepopups spellchecker media ts_advimage},
+                  'plugins' => %w{ paste table fullscreen ts_advimage },
+                  'init_instance_callback' => "InsertExpander",
+            		  'dialog_type' => "modal",
+                  'language' => (defined?(I18n) ? I18n.locale : :en) 
+								}
     options = default_options.merge(@tiny_mce_options.stringify_keys).merge(options.stringify_keys)
     raw_options = @raw_tiny_mce_options + raw_options unless @raw_tiny_mce_options.nil?
 
