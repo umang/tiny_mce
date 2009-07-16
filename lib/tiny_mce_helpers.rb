@@ -32,9 +32,9 @@ module TinyMCEHelpers
                    unlink separator image ts_advimage cleanup separator undo redo },
                    #'theme_advanced_buttons1' => %w{ formatselect fontsizeselect},
                    #'theme_advanced_buttons1' => %w{ formatselect },
-                  'theme_advanced_buttons2' => %w{ tablecontrols separator fullscreen separator code },
+#                   'theme_advanced_buttons2' => %w{ tablecontrols separator fullscreen separator code },
+                  'theme_advanced_buttons2' => %w{ tablecontrols separator asciimath asciimathcharmap asciisvg separator fullscreen separator code },
                    #'theme_advanced_buttons3_add' => %w{ tablecontrols fullscreen removeformat preview},
-                   #'theme_advanced_buttons2' => %w{},
                   'theme_advanced_buttons3' => %w{},
                   'paste_auto_cleanup_on_paste' => true,
                   'paste_create_paragraphs' => true,
@@ -45,7 +45,8 @@ module TinyMCEHelpers
                   'paste_insert_word_content_callback' => "convertWord",
                   'forced_root_block' => false, #No automatic <p> tag creation on editor invoke.
                   #'plugins' => %w{ contextmenu paste table fullscreen preview inlinepopups spellchecker media ts_advimage},
-                  'plugins' => %w{ paste table fullscreen ts_advimage },
+                  #'plugins' => %w{ paste table fullscreen ts_advimage },
+                  'plugins' => %w{safari asciimath asciisvg inlinepopups paste table fullscreen ts_advimage },
                   'init_instance_callback' => "InsertExpander",
             		  'dialog_type' => "modal",
                   'language' => (defined?(I18n) ? I18n.locale : :en) 
