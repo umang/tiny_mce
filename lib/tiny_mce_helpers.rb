@@ -18,7 +18,7 @@ module TinyMCEHelpers
 	  @tiny_mce_options ||= {}
 		default_options = {
  									'mode' => "textareas",
-                	#'editor_selector' => 'mceEditor',
+                	'editor_selector' => 'mceEditor',
                   'theme' => 'advanced',
                   'width' => "100%",
                   'convert_urls' => false,
