@@ -1,13 +1,13 @@
 /**
  * ASCIIMath Plugin for TinyMCE editor
- *   port of ASCIIMath plugin for HTMLArea written by 
+ *   port of ASCIIMath plugin for HTMLArea written by
  *   David Lippman & Peter Jipsen
  *
  * @author David Lippman
- * @copyright Copyright © 2008 David Lippman.
+ * @copyright Copyright ï¿½ 2008 David Lippman.
  *
  * Plugin format based on code that is:
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright ï¿½ 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -25,12 +25,11 @@
 		 */
 		init : function(ed, url) {
 			var t = this;
-			
+
 			// Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceAsciimath');
 			ed.addCommand('mceAsciimath', function(val) {
-				
-				if (t.lastAMnode==null) {
-					existing = ed.selection.getContent();
+// 				if (t.lastAMnode==null) { // #arpit: disabled this.
+          existing = ed.selection.getContent();
 					if (existing.indexOf('class=AM')==-1) { //existing does not contain an AM node, so turn it into one
 					       //strip out all existing html tags.
 					       existing = existing.replace(/<([^>]*)>/g,"");
@@ -41,27 +40,27 @@
 						       existing = val;
 					       }
 					       entity = '<span class=AMedit>`'+existing+'<span id="removeme"></span>`</span> ';
-					    
+
 					       if (tinymce.isIE) ed.focus();
-					   
+
 					       ed.selection.setContent(entity);
-					   
+
 					       ed.selection.select(ed.dom.get('removeme'));
 					       ed.dom.remove('removeme');
 					       ed.selection.collapse(true);
-					       
+
 					       ed.nodeChanged();
 					 }
-					
-				} else if (val) {
-					ed.selection.setContent(val);
-				}
-				
+
+// 				} else if (val) {
+// 					ed.selection.setContent(val);
+// 				}
+
 			});
-			
+
 			ed.addCommand('mceAsciimathDlg', function() {
 				if (typeof AMTcgiloc == 'undefined') {
-					AMTcgiloc = "";	
+					AMTcgiloc = "";
 				}
 				ed.windowManager.open({
 					file : url + '/amcharmap.htm',
@@ -72,7 +71,7 @@
 					plugin_url : url, // Plugin absolute URL
 					AMTcgiloc : AMTcgiloc
 				});
-				
+
 			});
 			ed.onKeyDown.add(function(ed, ev) {
 				var keycode = ev.keyCode;
@@ -91,8 +90,8 @@
 						ed.nodeChanged();
 					}
 				}
-				
-				
+
+
 			});
 			ed.onKeyUp.add(function(ed, ev) {
 				var keycode = ev.keyCode;
@@ -102,7 +101,7 @@
 			});
 			ed.onKeyPress.add(function(ed, ev) {
 				var keycode = ev.charCode || ev.keyCode;
-				
+
 				var key = String.fromCharCode(keycode);
 				if (key=='`') {
 					if (t.lastAMnode == null) {
@@ -111,35 +110,34 @@
 						       //strip out all existing html tags.
 						       existing = existing.replace(/<([^>]*)>/g,"");
 						       entity = '<span class=AMedit>`'+existing+'<span id="removeme"></span>`</span> ';
-						    
+
 						       if (tinymce.isIE) ed.focus();
-						   
+
 						       ed.selection.setContent(entity);
-						   
+
 						       ed.selection.select(ed.dom.get('removeme'));
 						       ed.dom.remove('removeme');
-						       
+
 						       ed.nodeChanged();
-						       
 						 }
 					}
 					if (ev.stopPropagation) {
 						ev.stopPropagation();
 						ev.preventDefault();
-				       } else {
+          } else {
 						ev.cancelBubble = true;
 						ev.returnValue = false;
-				       }
+          }
 				}
 			});
-			
+
 			// Register asciimath button
 			ed.addButton('asciimath', {
 				title : 'asciimath.desc',
 				cmd : 'mceAsciimath',
 				image : url + '/img/ed_mathformula2.gif'
 			});
-			
+
 			ed.addButton('asciimathcharmap', {
 				title : 'asciimathcharmap.desc',
 				cmd : 'mceAsciimathDlg',
@@ -157,29 +155,29 @@
 				if (tinymce.isIE) {
 					addhtml = "<object id=\"mathplayer\" classid=\"clsid:32F66A20-7614-11D4-BD11-00104BD3F987\"></object>";
 					addhtml +="<?import namespace=\"m\" implementation=\"#mathplayer\"?>";
-			
+
 					ed.dom.doc.getElementsByTagName("head")[0].insertAdjacentHTML("beforeEnd",addhtml);
 				}
-				
+
 			});
-			
+
 			ed.onPreProcess.add(function(ed,o) {
 				if (o.get) {
 					AMtags = ed.dom.select('span.AM', o.node);
 					for (var i=0; i<AMtags.length; i++) {
 						t.math2ascii(AMtags[i]);
 					}
-				} 
-				
+				}
+
 			});
-			
+
 			ed.onSetContent.add(function(ed,o) {
 					AMtags = ed.dom.select('span.AM');
 					for (var i=0; i<AMtags.length; i++) {
 						t.nodeToAM(AMtags[i]);
 					}
 			});
-			
+
 			ed.onBeforeExecCommand.add(function(ed,cmd) {
 				if (cmd != 'mceAsciimath' && cmd != 'mceAsciimathDlg') {
 					AMtags = ed.dom.select('span.AM');
@@ -189,7 +187,7 @@
 					}
 				}
 			});
-			
+
 			ed.onExecCommand.add(function(ed,cmd) {
 				if (cmd != 'mceAsciimath' && cmd != 'mceAsciimathDlg') {
 					AMtags = ed.dom.select('span.AMedit');
@@ -199,7 +197,7 @@
 					}
 				}
 			});
-			
+
 			ed.onNodeChange.add(function(ed, cm, e) {
 				var doprocessnode = true;
 				if (t.testAMclass(e)) {
@@ -214,10 +212,10 @@
 					if (t.lastAMnode == p) {
 						doprocessnode = false;
 					} else {
-						t.math2ascii(p); 
+						t.math2ascii(p);
 						p.className = 'AMedit';
-						if (t.lastAMnode != null) { 
-							t.nodeToAM(t.lastAMnode); 
+						if (t.lastAMnode != null) {
+							t.nodeToAM(t.lastAMnode);
 							t.lastAMnode.className = 'AM'
 						}
 						t.lastAMnode = p;
@@ -229,12 +227,12 @@
 					     p = t.lastAMnode.parentNode;
 					     p.removeChild(t.lastAMnode);
 				     } else {
-					     t.nodeToAM(t.lastAMnode);  
-					     t.lastAMnode.className = 'AM'; 
+					     t.nodeToAM(t.lastAMnode);
+					     t.lastAMnode.className = 'AM';
 				     }
 				     t.lastAMnode = null;
 			       }
-					
+
 			});
 			ed.onDeactivate.add(function(ed) {
 				if (t.lastAMnode != null) {
@@ -242,8 +240,8 @@
 					     p = t.lastAMnode.parentNode;
 					     p.removeChild(t.lastAMnode);
 				     } else {
-					     t.nodeToAM(t.lastAMnode);  
-					     t.lastAMnode.className = 'AM'; 
+					     t.nodeToAM(t.lastAMnode);
+					     t.lastAMnode.className = 'AM';
 				     }
 				     t.lastAMnode = null;
 				}
@@ -265,7 +263,7 @@
 				version : "1.0"
 			};
 		},
-		
+
 		math2ascii : function(el) {
 			var myAM = el.innerHTML;
 			if (myAM.indexOf("`") == -1) {
@@ -280,7 +278,7 @@
 				el.innerHTML = myAM;
 			}
 		},
-		
+
 		nodeToAM : function(outnode) {
 			 if (tinymce.isIE) {
 				  var str = outnode.innerHTML.replace(/\`/g,"");
@@ -291,7 +289,7 @@
 				  } else {
 					  newAM.appendChild(AMparseMath(str));
 				  }
-				  outnode.innerHTML = newAM.innerHTML;  
+				  outnode.innerHTML = newAM.innerHTML;
 			  } else {
 				  //doesn't work on IE, probably because this script is in the parent
 				  //windows, and the node is in the iframe.  Should it work in Moz?
@@ -299,12 +297,12 @@
 				 outnode.innerHTML =myAM;     //move between `` on Firefox insert math
 				 AMprocessNode(outnode);
 			  }
-			
-		}, 
-		
+
+		},
+
 		lastAMnode : null,
 		preventAMrender : false,
-		
+
 		testAMclass : function(el) {
 			if ((el.className == 'AM') || (el.className == 'AMedit')) {
 				return true;

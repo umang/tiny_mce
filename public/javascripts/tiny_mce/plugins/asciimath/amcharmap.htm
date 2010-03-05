@@ -4,7 +4,9 @@
 	<title>Math Symbols</title>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/amcharmap.js"></script>
-	<script type="text/javascript" src="js/ASCIIMathMLwFallback.js"></script>
+<!-- 	<script type="text/javascript" src="js/ASCIIMathMLwFallback.js"></script> -->
+  <script type="text/javascript" src="../../../ASCIIMathML.js"></script>
+	<!-- Or <script type="text/javascript" src="js/ASCIIMathML.js"></script> -->
 	<style type="text/css">
 	td.character {
 	    font-family: Times,serif;
@@ -14,7 +16,7 @@
 	    background: #FFF;
 	    padding: 4px;
 	}
-	
+
 	td.character-hilite {
 	    background: Highlight;
 	    color: HighlightText;
@@ -37,7 +39,7 @@ function View( td, character )               // preview character
 <base target="_self" />
 </head>
 <body>
-
+<div id="asciiMathTable">
 <table border="0" cellspacing="1" cellpadding="0" width="100%" style="cursor: pointer; background: #ADAD9C; border: 1px inset;">
 <tr>
 <td class="character" onMouseOver="View(this,'``')" onClick="javascript:AsciimathDialog.set('')">New</td>
@@ -189,6 +191,6 @@ function View( td, character )               // preview character
 <td class="character" onMouseOver="View(this,'Omega')" onClick="javascript:AsciimathDialog.set('Omega')">`Omega`</td>
 </tr>
 </table>
-
+</div>
 </body>
 </html>
